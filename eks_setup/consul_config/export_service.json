@@ -1,0 +1,17 @@
+{
+  "Kind": "exported-services",
+  "Partition": "eks1",
+  "Name": "eks1",
+  "Namespace": "default",
+  "Services": [
+    {
+      "Name": "counting",
+      "Namespace": "default",
+      "Consumers": [
+        {
+          "Partition": "eks2"
+        }
+      ]
+    }
+  ]
+}

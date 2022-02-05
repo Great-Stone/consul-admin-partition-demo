@@ -1,0 +1,24 @@
+{
+   "service": {
+      "name": "dashboard",
+      "kind": "connect-proxy",
+      "port": 9002,
+      "namespace": "default",
+      "partition": "eks2",
+      "proxy": {
+         "destination_service_name": "dashboard",
+         "upstreams": [
+            {
+               "destination_partition": "eks1",
+               "destination_namespace": "default",
+               "destination_type": "service",
+               "destination_name": "counting",
+               "local_bind_port": 9001,
+               "mesh_gateway": {
+                  "mode": "local"
+               }
+            }
+         ]
+      }
+   }
+}

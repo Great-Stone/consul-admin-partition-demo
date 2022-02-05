@@ -1,0 +1,74 @@
+global:
+  enabled: false
+  name: consul
+  image: hashicorp/consul-enterprise:1.11.2-ent
+  enableConsulNamespaces: true
+  adminPartitions:
+    enabled: true
+    name: ''
+    service:
+      type: LoadBalancer
+  datacenter: dc1
+  enterpriseLicense:
+    secretName: license
+    secretKey: key
+  gossipEncryption:
+    secretName: consul-gossip-encryption-key
+    secretKey: key
+  tls:
+    enabled: true
+    enableAutoEncrypt: true
+    verify: false
+    httpsOnly: true
+    caCert:
+      secretName: consul-ca-cert
+      secretKey: tls.crt
+    caKey:
+      secretName: consul-ca-key
+      secretKey: tls.key
+
+externalServers:
+  enabled: true
+  hosts:
+    - 'provider=aws tag_key=type tag_value=consul-server region=ap-northeast-3'
+  httpsPort: 8501
+  # tlsServerName: server.dc1.consul
+  useSystemRoots: false
+
+client:
+  enabled: true
+  # enable gRPC on your client to support Consul service mesh
+  grpc: true
+  exposeGossipPorts: true
+  join:
+    - 'provider=aws tag_key=type tag_value=consul-server region=ap-northeast-3'
+  extraConfig: |
+    {
+      "log_level": "DEBUG"
+    }
+
+connectInject:
+  enabled: true
+  replicas: 2
+
+dns:
+  enabled: true
+  enableRedirection: true
+
+meshGateway:
+  enabled: true
+  replicas: 1
+
+ingressGateways:
+  enabled: true
+  replicas: 1
+  gateways:
+    - name: ingress-gateway
+      service:
+        type: LoadBalancer
+        ports:
+          - port: 5000
+
+controller:
+  enabled: true
+

@@ -1,0 +1,17 @@
+{
+  "Kind": "service-defaults",
+  "Name": "counting",
+  "Namespace": "default",
+  "UpstreamConfig": {
+    "Defaults": {
+      "MeshGateway": {
+        "Mode": "local"
+      },
+      "Limits": {
+        "MaxConnections": 512,
+        "MaxPendingRequests": 512,
+        "MaxConcurrentRequests": 512
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Kind": "ingress-gateway",
+  "Name": "ingress-gateway",
+  "Namespace": "default",
+  "Partition": "eks1",
+  "Listeners": [
+    {
+      "Port": 5000,
+      "Protocol": "tcp",
+      "Services": [
+        {
+          "Name": "dashboard"
+        }
+      ]
+    }
+  ]
+}
